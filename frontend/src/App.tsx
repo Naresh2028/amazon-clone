@@ -1,10 +1,13 @@
+import { Header } from "./components/Header"
+import AppRoutes from "./routes/AppRoutes"
 
 function App() {
 
   return (
     <>
     <div>
-      <h1>Amazon Clone</h1>
+      <Header />
+      <AppRoutes />
     </div>
     </>
   )
