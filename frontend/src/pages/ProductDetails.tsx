@@ -2,11 +2,15 @@ import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import type { Product } from "../domain/Product";
 import { getByProductId } from "../data/productService";
+import { useCart } from '../hooks/useCart';
 
 function ProductDetailsPage() {
   const { id } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, SetIsLoading] = useState(true);
+  const [justAdded, setJustAdded] = useState(false);
+
+  const  {addToCart}  = useCart();
 
   useEffect(() => {
     let isActive = true;
@@ -22,6 +26,11 @@ function ProductDetailsPage() {
       isActive = false;
     };
   }, [id]);
+
+  function handleAddToCart(selectedProduct:Product){
+    addToCart(selectedProduct);
+    setJustAdded(true);
+  }
 
   if (loading) {
     return <p className="message">Loading Porducts..</p>;
@@ -54,7 +63,26 @@ function ProductDetailsPage() {
             <p className="out-of-stock">Out of Stock</p>
           )}
 
-          <button disabled={product.stock === 0}>Add to cart</button>
+
+          <button 
+            disabled={product.stock === 0}
+            onClick={() => handleAddToCart(product)}
+              >Add to cart
+          </button>
+
+          {justAdded && (
+            <p className="in-stock">
+              Added to cart. <Link to="/cart">Go to cart</Link>
+            </p>
+          )}
+
+          {
+            justAdded && (
+              <p className="in-stock">
+                Added to cart. <Link to="/cart">Go to cart</Link>
+              </p>
+            )
+          }
         </div>
       </div>
     </div>
@@ -62,3 +90,5 @@ function ProductDetailsPage() {
 }
 
 export default ProductDetailsPage;
+
+
