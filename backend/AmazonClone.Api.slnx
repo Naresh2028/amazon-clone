@@ -1,6 +1,6 @@
 <Solution>
-  <Project Path="Amazon.Infrastructure/AmazonClone.Infrastructure.csproj" Id="1aac8755-f534-4413-97a0-e46da23b01c2" />
   <Project Path="AmazonClone.Api/AmazonClone.Api.csproj" />
   <Project Path="AmazonClone.Application/AmazonClone.Application.csproj" Id="49880549-edf9-437f-8052-2b58e11641c6" />
   <Project Path="AmazonClone.Domain/AmazonClone.Domain.csproj" Id="556be110-0438-4fad-83d9-948dc7b044e8" />
+  <Project Path="AmazonClone.Infrastructure/AmazonClone.Infrastructure.csproj" />
 </Solution>
