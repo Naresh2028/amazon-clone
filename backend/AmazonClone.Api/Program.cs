@@ -18,6 +18,7 @@ builder.Services.AddApplicationServices(builder.Configuration);
 
 builder.Services.AddControllers();
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,7 +30,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors(DependencyInjection.policyName);
+app.UseCors(DependencyInjection.POLICY_NAME);
 
 app.MapControllers();
 
