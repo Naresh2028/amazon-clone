@@ -25,7 +25,7 @@ namespace AmazonClone.Api.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:Guid}")]
         public async Task<IActionResult> GetByIdAsync(Guid id)
         {
             var category = await _categoryService.GetByIdAsync(id);
@@ -51,7 +51,7 @@ namespace AmazonClone.Api.Controllers
             }
         }
 
-        [HttpPut("{id:int}")]
+        [HttpPut("{id:Guid}")]
         public async Task<IActionResult> UpdateAsync(Guid id, UpdateCategoryRequestDto request)
         {
             try
@@ -72,7 +72,7 @@ namespace AmazonClone.Api.Controllers
         }
 
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("{id:Guid}")]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
             bool deleted = await _categoryService.DeleteAsync(id);

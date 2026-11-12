@@ -9,14 +9,14 @@ namespace AmazonClone.Api.Extensions
     public static class DependencyInjection
     {
 
-        public const string policyName = "amazon-client";
+        public const string POLICY_NAME = "amazon-client";
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration) 
         {
 
 
             // --- CONNECTION STRING START ---
             var connectionString = configuration.GetConnectionString("DefaultConnection")
-                    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' was not provided, da");
+                    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' was not provided");
 
             services.AddDbContext<AppDbContext>(options =>
             {
@@ -28,11 +28,11 @@ namespace AmazonClone.Api.Extensions
             //--- CORS CONFIGURATION STARTS ---
 
             var corsUrl = configuration.GetValue<string>("cors")
-                ?? throw new InvalidOperationException("CORS origin URL was not configured, da!");
+                ?? throw new InvalidOperationException("CORS origin URL was not configured");
 
             services.AddCors(corsOptions =>
             {
-                corsOptions.AddPolicy(policyName, options =>
+                corsOptions.AddPolicy(POLICY_NAME, options =>
                 {
                     options
                         .WithOrigins(corsUrl)
