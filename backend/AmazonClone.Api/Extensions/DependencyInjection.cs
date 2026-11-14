@@ -2,6 +2,9 @@
 using Amazon.Infrastructure.Repositories;
 using AmazonClone.Application.Interfaces;
 using AmazonClone.Application.Services;
+using AmazonClone.Application.Validators;
+using AmazonClone.Infrastructure.Repositories;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 namespace AmazonClone.Api.Extensions
@@ -48,8 +51,17 @@ namespace AmazonClone.Api.Extensions
 
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductService, ProductService>();
 
             // --- DI REGISTRATION END ---
+
+
+            // --- FLUEND VALIDATION REG START ---
+
+            services.AddValidatorsFromAssemblyContaining<CreateProductRequestValidator>();
+
+            // --- FLUEND VALIDATION REG END ---
 
             return services;
         }
