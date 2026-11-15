@@ -30,7 +30,7 @@ namespace AmazonClone.Api.Extensions
 
             //--- CORS CONFIGURATION STARTS ---
 
-            var corsUrl = configuration.GetValue<string>("cors")
+            string[] allowedOrigins = configuration.GetSection("cors:AllowedOrigins").Get<string[]>()
                 ?? throw new InvalidOperationException("CORS origin URL was not configured");
 
             services.AddCors(corsOptions =>
@@ -38,7 +38,7 @@ namespace AmazonClone.Api.Extensions
                 corsOptions.AddPolicy(POLICY_NAME, options =>
                 {
                     options
-                        .WithOrigins(corsUrl)
+                        .WithOrigins(allowedOrigins)
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });

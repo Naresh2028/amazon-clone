@@ -1,0 +1,43 @@
+<div class="container mt-4">
+    <a class="btn btn-secondary" routerLink="/">
+        Back to List
+    </a>
+</div>
+
+
+
+<form class="container mt-4" [formGroup]="categoryForm" (ngSubmit)="CreateCategory(categoryForm)">
+    
+    <!-- Category Name -->
+    <div class="mb-3">
+        <label class="form-label" for="name">Category Name</label>
+        <input 
+            type="text"
+            class="form-control"
+            id="name"
+            formControlName="name"
+            placeholder="Category Name"
+        />
+
+        <ng-container *ngIf="categoryForm.get('name')?.invalid && categoryForm.get('name')?.touched">
+            <p class="text-danger">Name is Required</p>
+        </ng-container>
+    </div>
+
+
+     <!-- Description -->
+    <div class="mb-3">
+        <label class="form-label" for="description">Description</label>
+        <textarea 
+            class="form-control"
+            id="description"
+            formControlName="description"
+            placeholder="Description"
+        ></textarea>
+    </div>
+
+    <div class="mb-3">
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+    
+</form>
