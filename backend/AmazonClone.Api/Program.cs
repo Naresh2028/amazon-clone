@@ -1,7 +1,9 @@
 using Amazon.Infrastructure.Persistance;
 using AmazonClone.Api.Extensions;
+using AmazonClone.Api.Middleware;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,19 @@ builder.Services.AddOpenApi();
 builder.Services.AddApplicationServices(builder.Configuration);
 
 //--- GLOBAL REGISTRATION END ---
+
+
+//--- SERILOG LOGGING START ---
+
+builder.Host.UseSerilog((context, services, loggerConfiguration) =>
+{
+    loggerConfiguration
+        .ReadFrom.Configuration(context.Configuration)
+        .ReadFrom.Services(services)
+        .Enrich.FromLogContext();
+});
+
+//--- SERILOG LOGGING END ---
 
 
 builder.Services.AddControllers();
@@ -31,6 +46,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors(DependencyInjection.POLICY_NAME);
+app.UseMiddleware<CorrelationIdMiddleware>();
+app.UseSerilogRequestLogging();
 
 app.MapControllers();
 
