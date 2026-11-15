@@ -62,7 +62,7 @@ namespace AmazonClone.Application.Services
                 Price = request.Price,
                 StockQuantity = request.StockQuantity,
                 CreatedAt = DateTime.UtcNow,
-                ImageUrl = request?.ImageUrl?.Trim(),
+                ImageUrl = string.IsNullOrWhiteSpace(request.ImageUrl) ? null : request.ImageUrl.Trim(),
                 IsActive = true,
                 CategoryId = category.Id,
                 Category = category
@@ -97,7 +97,7 @@ namespace AmazonClone.Application.Services
             product.Price = request.Price;
             product.StockQuantity = request.StockQuantity;
             product.ModifiedAt = DateTime.UtcNow;
-            product.ImageUrl = request.ImageUrl?.Trim();
+            product.ImageUrl = string.IsNullOrWhiteSpace(request.ImageUrl) ? null : request.ImageUrl?.Trim();
             product.IsActive = request.IsActive;
             product.CategoryId = category.Id;
             product.Category = category;
@@ -133,7 +133,7 @@ namespace AmazonClone.Application.Services
                 Price = product.Price,
                 CategoryId = product.CategoryId,
                 StockQuantity = product.StockQuantity,
-                ImageUrl = product.ImageUrl,
+                ImageUrl = product.ImageUrl?.Trim(),
                 IsActive = product.IsActive,
                 CategoryName = product.Category?.Name ?? string.Empty
             };

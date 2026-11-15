@@ -1,0 +1,49 @@
+<div class="container mt-4">
+  <a class="btn btn-secondary" routerLink="/category-create">
+    Create Category +
+  </a>
+</div>
+
+<div class="container mt-4" *ngIf="categoryList.length > 0; else emptyState">
+  <p>category-list works!</p>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of categoryList; let i = index">
+          <td>{{ i + 1}}</td>
+          <td>{{ category.name }}</td>
+          <td>{{ category.description }}</td>
+          <td>{{ category.isActive ? "Yes" : "No" }}</td>
+          <td>
+            <a
+              class="btn btn-secondary"
+              [routerLink]="['/category-edit', category.id]"
+              >Edit Category</a
+            >
+            <button class="btn btn-danger" type="submit" (click)="removeCategory(category.id)"
+              >Remove Category</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="container mt-4" *ngIf="categoryList.length === 0">
+  <p>There is no data</p>
+</div>
+
+<ng-template #emptyState>
+  <div class="container mt-4">
+    <p>There is no data</p>
+  </div>
+</ng-template>

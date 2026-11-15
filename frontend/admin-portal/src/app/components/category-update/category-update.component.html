@@ -1,0 +1,52 @@
+
+<div class="container mt-4">
+    <a class="btn btn-secondary" routerLink="/">Bact to List</a>
+</div>
+
+<form class="container mt-4" #form="ngForm" *ngIf="categoryFormData; else loading" (ngSubmit)="updateCategoryForm(form)" >
+    
+    <!-- Name -->
+    <div class="mb-3" >
+        <label for="name" class="form-label">Container Name</label>
+        
+        <input
+            id="name"
+            name="name"
+            class="form-control"
+            [(ngModel)]="categoryFormData.name" 
+            #name="ngModel"
+            placeholder="Enter name"
+            required
+        />
+
+        <ng-container *ngIf="name.invalid && name.touched">
+            <p class="text-danger">Name is required</p>
+        </ng-container>
+        
+    </div>
+
+    <!-- Description -->
+    <div class="mb-3" >
+        <label for="description" class="form-label">Description</label>
+        
+        <input
+            id="description"
+            name="description"
+            class="form-control"
+            [(ngModel)]="categoryFormData.description" 
+            #description="ngModel"
+            placeholder="Enter description"
+        />
+        
+    </div>
+
+    <div class="mb-3">
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+</form>
+
+<ng-template #loading>
+    <div class="container mt-4">
+        <p>Loading.. please wait</p>
+    </div>
+</ng-template>

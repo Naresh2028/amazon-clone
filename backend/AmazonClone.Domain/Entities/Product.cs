@@ -12,6 +12,7 @@ namespace AmazonClone.Domain.Entities
         public decimal Price { get; set; }
         public int StockQuantity { get; set; }
         public string? ImageUrl { get; set; }
+        public bool IsActive { get; set; }
 
         // Navigation
         public Guid CategoryId { get; set; }

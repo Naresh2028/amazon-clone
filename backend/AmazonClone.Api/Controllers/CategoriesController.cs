@@ -38,7 +38,7 @@ namespace AmazonClone.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(CreateCategoryRequestDto request)
+        public async Task<IActionResult> CreateAsync([FromBody] CreateCategoryRequestDto request)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace AmazonClone.Api.Controllers
         }
 
         [HttpPut("{id:Guid}")]
-        public async Task<IActionResult> UpdateAsync(Guid id, UpdateCategoryRequestDto request)
+        public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] UpdateCategoryRequestDto request)
         {
             try
             {
