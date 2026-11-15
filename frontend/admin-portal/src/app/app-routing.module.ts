@@ -8,7 +8,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 const routes: Routes = [
   {path:'',component:CategoryListComponent},
   {path:'category-create',component:CategoryCreateComponent},
-  {path:'category-update',component:CategoryUpdateComponent},
+  {path:'category-update/:id',component:CategoryUpdateComponent},
   {path:'**', component:NotFoundComponent}
 ];
 

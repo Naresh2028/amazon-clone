@@ -3,6 +3,7 @@ using AmazonClone.Application.Interfaces;
 using AmazonClone.Domain.Entities;
 using AmazonClone.Domain.Exceptions;
 using System;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,10 +12,15 @@ namespace AmazonClone.Application.Services
     public class CategoryService : ICategoryService
     {
         private readonly ICategoryRepository _categoryRepository;
+        private readonly ILogger<CategoryService> _logger;
 
-        public CategoryService(ICategoryRepository categoryRepository)
+        public CategoryService(
+            ICategoryRepository categoryRepository,
+            ILogger<CategoryService> logger
+            )
         {
             _categoryRepository = categoryRepository;
+            _logger = logger;
         }
 
         public async Task<List<CategoryResponseDto>> GetAllAsync()
@@ -41,16 +47,23 @@ namespace AmazonClone.Application.Services
 
         public async Task<CategoryResponseDto> CreateAsync(CreateCategoryRequestDto request)
         {
+
+            _logger.LogInformation("Creating Category {CategoryName}", request.Name);
+
             bool exists = await _categoryRepository.NameExistsAsync(request.Name, Guid.Empty);
+
             if (exists)
             {
                 throw new DomainException("A category with this name already exists.");
             }
 
             Category category = new Category();
+            category.Id = Guid.NewGuid();
             category.Name = request.Name.Trim();
             category.Description = request.Description.Trim();
             category.IsActive = true;
+
+            _logger.LogInformation("Category {CategoryId} Created", category.Id);
 
             await _categoryRepository.AddAsync(category);
             return MapToDto(category);

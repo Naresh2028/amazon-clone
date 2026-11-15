@@ -25,7 +25,7 @@ export class CategoryApiService {
   }
 
   create(request:categoryRequest):Observable<categoryResponse>{
-    return this.http.post<categoryResponse>(`${this.apiUrl}/create`, request);
+    return this.http.post<categoryResponse>(`${this.apiUrl}`, request);
   }
 
   update(id:string,request:categoryRequest):Observable<categoryResponse>{
