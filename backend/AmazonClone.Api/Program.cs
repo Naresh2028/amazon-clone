@@ -33,8 +33,12 @@ builder.Host.UseSerilog((context, services, loggerConfiguration) =>
 
 builder.Services.AddControllers();
 
-
 var app = builder.Build();
+
+
+app.UseMiddleware<CorrelationIdMiddleware>();
+app.UseSerilogRequestLogging();
+app.UseMiddleware<GlobalExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -46,9 +50,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors(DependencyInjection.POLICY_NAME);
-app.UseMiddleware<CorrelationIdMiddleware>();
-app.UseMiddleware<GlobalExceptionMiddleware>();
-app.UseSerilogRequestLogging();
 
 app.MapControllers();
 
