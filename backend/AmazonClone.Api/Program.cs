@@ -47,6 +47,7 @@ app.UseHttpsRedirection();
 
 app.UseCors(DependencyInjection.POLICY_NAME);
 app.UseMiddleware<CorrelationIdMiddleware>();
+app.UseMiddleware<GlobalExceptionMiddleware>();
 app.UseSerilogRequestLogging();
 
 app.MapControllers();
