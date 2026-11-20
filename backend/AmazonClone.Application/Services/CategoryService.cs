@@ -84,16 +84,23 @@ namespace AmazonClone.Application.Services
 
         public async Task<CategoryResponseDto> CreateAsync(CreateCategoryRequestDto request)
         {
+
+            _logger.LogInformation("Creating Category {CategoryName}", request.Name);
+
             bool exists = await _categoryRepository.NameExistsAsync(request.Name, Guid.Empty);
+
             if (exists)
             {
                 throw new DomainException("A category with this name already exists.");
             }
 
             Category category = new Category();
+            category.Id = Guid.NewGuid();
             category.Name = request.Name.Trim();
             category.Description = request.Description.Trim();
             category.IsActive = true;
+
+            _logger.LogInformation("Category {CategoryId} Created", category.Id);
 
             await _categoryRepository.AddAsync(category);
 
