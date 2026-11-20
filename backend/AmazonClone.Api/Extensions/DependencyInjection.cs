@@ -3,6 +3,7 @@ using Amazon.Infrastructure.Repositories;
 using AmazonClone.Application.Interfaces;
 using AmazonClone.Application.Services;
 using AmazonClone.Application.Validators;
+using AmazonClone.Infrastructure.External.Caching;
 using AmazonClone.Infrastructure.Repositories;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
@@ -46,6 +47,19 @@ namespace AmazonClone.Api.Extensions
 
             //--- CORS CONFIGURATION END ---
 
+            //--- REDIS CONFIGURATION START ---
+
+            string redisConnectionString = configuration.GetConnectionString("Redis") 
+                ?? throw new InvalidOperationException("Connection string 'Redis' not proided");
+
+            services.AddStackExchangeRedisCache(options => 
+            {
+                options.Configuration = redisConnectionString;
+                options.InstanceName = "amazon:clone";
+            });
+
+            //--- REDIS CONFIGURATION END ---
+
 
             // --- DI REGISTRATION START ---
 
@@ -54,6 +68,8 @@ namespace AmazonClone.Api.Extensions
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
 
+            // Because : Reuses one thread-safe Redis connection across all requests to avoid TCP connection overhead.
+            services.AddSingleton<ICacheService, CacheService>();
             // --- DI REGISTRATION END ---
 
 
