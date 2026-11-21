@@ -17,6 +17,6 @@ namespace AmazonClone.Domain.Entities
         // Navigation
         public Guid CategoryId { get; set; }
         public Category? Category { get; set; }
-
+        public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
     }
 }
