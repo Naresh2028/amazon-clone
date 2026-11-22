@@ -24,6 +24,14 @@ namespace AmazonClone.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<List<Product>> GetByIdsAsync(List<Guid> ids) 
+        {
+            return await _dbContext.Products
+                .AsNoTracking()
+                .Where(p => ids.Contains(p.Id))
+                .ToListAsync();
+        }
+
         public async Task<Product?> GetByIdAsync(Guid productId)
         {
             return await _dbContext.Products
@@ -51,6 +59,26 @@ namespace AmazonClone.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        
+        public async Task<bool> TryReduceStockAsync(Guid productId, int quantity) 
+        {
+            int affectedRows = await _dbContext.Products
+                .Where(p => p.Id == productId &&
+                    p.IsActive &&
+                    p.StockQuantity >= quantity)
+                .ExecuteUpdateAsync(setters => setters
+                    .SetProperty(p => p.StockQuantity, p => p.StockQuantity - quantity)
+                    .SetProperty(p => p.ModifiedAt, DateTime.UtcNow));
+
+            return affectedRows == 1;
+        }
+        public async Task RestoreStockAsync(Guid productId, int quantity) 
+        {
+            await _dbContext.Products
+                .Where(p => p.Id == productId)
+                .ExecuteUpdateAsync(setters => setters
+                    .SetProperty(p => p.StockQuantity, p => p.StockQuantity + quantity)
+                    .SetProperty(p => p.ModifiedAt, DateTime.UtcNow)
+                    );
+        }
     }
 }
