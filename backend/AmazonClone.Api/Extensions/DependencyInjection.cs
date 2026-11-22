@@ -3,7 +3,7 @@ using Amazon.Infrastructure.Repositories;
 using AmazonClone.Application.Interfaces;
 using AmazonClone.Application.Services;
 using AmazonClone.Application.Validators;
-using AmazonClone.Infrastructure.External.Caching;
+using AmazonClone.Infrastructure.Persistance;
 using AmazonClone.Infrastructure.Repositories;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
@@ -67,6 +67,8 @@ namespace AmazonClone.Api.Extensions
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             // Because : Reuses one thread-safe Redis connection across all requests to avoid TCP connection overhead.
             services.AddSingleton<ICacheService, CacheService>();
