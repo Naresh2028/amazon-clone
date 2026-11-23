@@ -18,11 +18,11 @@ namespace AmazonClone.Infrastructure.Persistance.Configurations
                 .HasKey(o => o.Id);
 
             modelBuilder
-                .HasIndex(o => o.OrderNumner)
+                .HasIndex(o => o.TotalAmount)
                 .IsUnique();
 
             modelBuilder
-                .Property(o => o.OrderAmount)
+                .Property(o => o.TotalAmount)
                 .HasPrecision(18,2);
 
             modelBuilder

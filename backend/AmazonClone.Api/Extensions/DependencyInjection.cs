@@ -56,6 +56,7 @@ namespace AmazonClone.Api.Extensions
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderService, OrderService>();
 
             // --- DI REGISTRATION END ---
 

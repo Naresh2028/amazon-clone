@@ -9,6 +9,6 @@ namespace AmazonClone.Domain.Enums
         Pending,
         Success,
         Failed,
-        Canceled
+        Cancelled
     }
 }

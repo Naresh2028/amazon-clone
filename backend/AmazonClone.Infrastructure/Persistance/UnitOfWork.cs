@@ -12,11 +12,9 @@ namespace AmazonClone.Infrastructure.Persistance
         private readonly AppDbContext _dbContext;
         private IDbContextTransaction? _transaction;
 
-        public UnitOfWork(AppDbContext dbContext,
-            IDbContextTransaction? transaction) 
+        public UnitOfWork(AppDbContext dbContext) 
         {
             _dbContext = dbContext;
-            _transaction = transaction;
         }
         public async Task BeginTransactionAsync()
         {

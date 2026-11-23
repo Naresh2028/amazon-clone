@@ -67,11 +67,7 @@ namespace AmazonClone.Infrastructure.Migrations
                     b.Property<DateTime>("ModifiedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<decimal>("OrderAmount")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("numeric(18,2)");
-
-                    b.Property<string>("OrderNumner")
+                    b.Property<string>("OrderNumber")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -80,9 +76,13 @@ namespace AmazonClone.Infrastructure.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
+                    b.Property<decimal>("TotalAmount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderNumner")
+                    b.HasIndex("TotalAmount")
                         .IsUnique();
 
                     b.ToTable("orders", (string)null);
