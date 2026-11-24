@@ -1,6 +1,5 @@
 ﻿using AmazonClone.Application.DTOs;
 using AmazonClone.Application.Interfaces;
-using AmazonClone.Domain.Entities;
 using AmazonClone.Domain.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
