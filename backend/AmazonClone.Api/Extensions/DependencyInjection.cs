@@ -47,6 +47,19 @@ namespace AmazonClone.Api.Extensions
 
             //--- CORS CONFIGURATION END ---
 
+            //--- REDIS CONFIGURATION START ---
+
+            string redisConnectionString = configuration.GetConnectionString("Redis") 
+                ?? throw new InvalidOperationException("Connection string 'Redis' not proided");
+
+            services.AddStackExchangeRedisCache(options => 
+            {
+                options.Configuration = redisConnectionString;
+                options.InstanceName = "amazon:clone";
+            });
+
+            //--- REDIS CONFIGURATION END ---
+
 
             // --- DI REGISTRATION START ---
 
@@ -58,6 +71,8 @@ namespace AmazonClone.Api.Extensions
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IOrderService, OrderService>();
 
+            // Because : Reuses one thread-safe Redis connection across all requests to avoid TCP connection overhead.
+            services.AddSingleton<ICacheService, CacheService>();
             // --- DI REGISTRATION END ---
 
 
