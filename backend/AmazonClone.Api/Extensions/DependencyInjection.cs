@@ -69,6 +69,7 @@ namespace AmazonClone.Api.Extensions
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderService, OrderService>();
 
             // Because : Reuses one thread-safe Redis connection across all requests to avoid TCP connection overhead.
             services.AddSingleton<ICacheService, CacheService>();

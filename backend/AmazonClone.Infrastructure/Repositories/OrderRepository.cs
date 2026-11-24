@@ -26,7 +26,7 @@ namespace AmazonClone.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Order?> GetById(Guid orderId) 
+        public async Task<Order?> GetByIdAsync(Guid orderId) 
         {
             return await _dbContext.Orders
                 .AsNoTracking()

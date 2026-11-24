@@ -8,9 +8,9 @@ namespace AmazonClone.Domain.Entities
 {
     public class Order : BaseEntity
     {
-        public string OrderNumner { get; set; } = string.Empty;
+        public string OrderNumber { get; set; } = string.Empty;
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
-        public decimal OrderAmount { get; set; }
+        public decimal TotalAmount { get; set; }
         public ShippingDetails? ShippingDetails { get; set; }
         public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
 
